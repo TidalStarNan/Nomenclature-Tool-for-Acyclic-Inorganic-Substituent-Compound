@@ -88,9 +88,6 @@ void output(short position[100][4], short chain_length)
 
 void input(short position[100][4], short &chain_length)
 {
-	std::cout << "\n选择导入方式：\n1. 文本文件（在本程序同目录下放置一个input.txt文件并写入）\n2. 控制台\n\n";
-	short in_choice = _getch();
-
 	char start_char;
 	char length_chars_tens;
 	char length_chars_ones;
@@ -102,6 +99,13 @@ void input(short position[100][4], short &chain_length)
 	short read_chain_length = 0;
 	short file_checksum = 0;
 	short read_checksum = 0;
+
+	short temp_position[100][4]{};
+	std::string in_char;
+	short in_char_index = 3;
+
+	std::cout << "\n选择导入方式：\n1. 文本文件（在本程序同目录下放置一个input.txt文件并写入）\n2. 控制台\n\n";
+	short in_choice = _getch();
 
 	switch (in_choice)
 	{
@@ -125,7 +129,6 @@ void input(short position[100][4], short &chain_length)
 			{
 				std::cout << "文件值不合法";
 			}
-			chain_length = read_chain_length;
 			file_checksum += read_chain_length;
 
 			for (short x = 0; x < read_chain_length * 2 - 1; x++)
@@ -135,15 +138,15 @@ void input(short position[100][4], short &chain_length)
 					file.get(data_char);
 					if (data_char >= '0' and data_char <= '9')
 					{
-						position[x][y] = data_char - '0';
+						temp_position[x][y] = data_char - '0';
 					}
 					else if (data_char >= 'a' and data_char <= 'f')
 					{
-						position[x][y] = data_char - 'a' + 10;
+						temp_position[x][y] = data_char - 'a' + 10;
 					}
 					else if(data_char >= 'g' and data_char <= 'z')
 					{
-						position[x][y] = 0;
+						temp_position[x][y] = 0;
 					}
 					else
 					{
@@ -151,7 +154,7 @@ void input(short position[100][4], short &chain_length)
 						file.close();
 						break;
 					}
-					file_checksum += position[x][y];
+					file_checksum += temp_position[x][y];
 				}
 			}
 
@@ -172,8 +175,16 @@ void input(short position[100][4], short &chain_length)
 				file.close();
 				break;
 			}
-
-			std::cout << "导入成功！";
+			
+			chain_length = read_chain_length;
+			for (short x = 0; x < read_chain_length * 2 - 1; x++)
+			{
+				for (int y = 1; y < 4; y++)
+				{
+					position[x][y] = temp_position[x][y];
+				}
+			}
+			std::cout << "\n导入成功！";
 		}
 		else
 		{
@@ -185,51 +196,56 @@ void input(short position[100][4], short &chain_length)
 	case '2':
 		std::cout << "请输入碳链编码：";
 
-		std::cin >> start_char;
+		std::cin >> in_char;
+
+		start_char = in_char.at(0);
 		if (start_char != '=')
 		{
 			std::cout << "输入格式不合法，缺少起止标志";
 			break;
 		}
 
-		std::cin.get(length_chars_tens);
-		std::cin.get(length_chars_ones);
+		length_chars_tens = in_char.at(1);
+		length_chars_ones = in_char.at(2);
 		read_chain_length = (length_chars_tens - '0') * 10 + (length_chars_ones - '0');
 		if (read_chain_length < 0 or read_chain_length > 50)
 		{
 			std::cout << "输入值不合法";
 		}
-		chain_length = read_chain_length;
 		file_checksum += read_chain_length;
 
 		for (short x = 0; x < read_chain_length * 2 - 1; x++)
 		{
 			for (short y = 1; y <= 3; y++)
 			{
-				std::cin.get(data_char);
+				data_char = in_char.at(in_char_index);
 				if (data_char >= '0' and data_char <= '9')
 				{
-					position[x][y] = data_char - '0';
+					temp_position[x][y] = data_char - '0';
 				}
 				else if (data_char >= 'a' and data_char <= 'f')
 				{
-					position[x][y] = data_char - 'a' + 10;
+					temp_position[x][y] = data_char - 'a' + 10;
 				}
 				else if(data_char >= 'g' and data_char <= 'z')
 				{
-					position[x][y] = 0;
+					temp_position[x][y] = 0;
 				}
 				else
 				{
 					std::cout << "输入值不合法";
 					break;
 				}
-				file_checksum += position[x][y];
+				in_char_index++;
+				file_checksum += temp_position[x][y];
 			}
 		}
 
-		std::cin.get(read_checksum_tens);
-		std::cin.get(read_checksum_ones);
+		read_checksum_tens = in_char.at(in_char_index);
+		in_char_index++;
+		read_checksum_ones = in_char.at(in_char_index);
+		in_char_index++;
+
 		read_checksum = (read_checksum_tens - '0') * 10 + (read_checksum_ones - '0');
 		if (read_checksum != (file_checksum + 8) % 100)
 		{
@@ -237,13 +253,21 @@ void input(short position[100][4], short &chain_length)
 			break;
 		}
 
-		std::cin.get(end_char);
+		end_char = in_char.at(in_char_index);
 		if (end_char != '=')
 		{
 			std::cout << "输入格式不合法，缺少起止标志";
 			break;
 		}
 
+		chain_length = read_chain_length;
+		for (short x = 0; x < read_chain_length * 2 - 1; x++)
+		{
+			for (int y = 1; y < 4; y++)
+			{
+				position[x][y] = temp_position[x][y];
+			}
+		}
 		std::cout << "\n导入成功！";
 		break;
 	}

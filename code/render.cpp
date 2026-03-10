@@ -7,8 +7,8 @@ void render(short position[100][4], short chain_length, short pointer[1][2])
 
     std::cout << "=====欢迎使用非环烃命名工具=====\n";
     std::cout << "by TidalStarNan\n\n";
-    std::cout << "WASD：移动   ESC：退出程序   I:导入化合物   O：导出化合物   M：开始命名\n\n";
-    std::cout << "Z：延长碳链     X：缩短碳链   E：删除烃基\n";
+    std::cout << "WASD：移动   Esc：退出程序   I:导入化合物   O：导出化合物   M：开始命名\n\n";
+    std::cout << "Z：延长碳链    X：缩短碳链   Q：删除烃基\n";
     std::cout << "C：单键   V：双键   B：三键   数字键：烃基\n\n";
     std::cout << "当前碳链长度：" << chain_length << "\n\n";
 
