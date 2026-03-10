@@ -123,11 +123,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="code\check_in\check_b.cpp" />
+    <ClCompile Include="code\check_in\check_c.cpp" />
+    <ClCompile Include="code\check_in\check_q.cpp" />
+    <ClCompile Include="code\check_in\check_num.cpp" />
+    <ClCompile Include="code\check_in\check_v.cpp" />
+    <ClCompile Include="code\check_in\check_x.cpp" />
     <ClCompile Include="code\io.cpp" />
     <ClCompile Include="code\main.cpp" />
-    <ClCompile Include="code\nomenclature.cpp" />
+    <ClCompile Include="code\nomenclature\nomenclature.cpp" />
+    <ClCompile Include="code\nomenclature\to_number.cpp" />
     <ClCompile Include="code\render.cpp" />
-    <ClCompile Include="code\to_number.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource\resource.rc" />
@@ -136,6 +142,7 @@
     <Image Include="resource\icon.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="code\main.h" />
     <ClInclude Include="resource\resource.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
