@@ -3,6 +3,7 @@
 
 int main()
 {
+	main:
 	short position[100][4]{};
 	position[0][2] = 1;
 	for (short x = 0; x < 100; x++)
@@ -145,28 +146,52 @@ int main()
 
 			case 'r':
 			case 'R':
-				for (short x = 0; x < 100; x++)
+				std::cout << "\n确定要重置吗？\n按Y键确认，按其他键取消\n";
+				if (_getch() == 'y' or 'Y')
 				{
-					position[x][0] = x;
-					position[x][1] = 0;
-					position[x][2] = 0;
-					position[x][3] = 0;
-				}
-				position[0][2] = 1;
+					for (short x = 0; x < 100; x++)
+					{
+						position[x][0] = x;
+						position[x][1] = 0;
+						position[x][2] = 0;
+						position[x][3] = 0;
+					}
+					position[0][2] = 1;
 
-				pointer[0][0] = 0;
-				pointer[0][1] = 0;
-				chain_length = 1;
+					pointer[0][0] = 0;
+					pointer[0][1] = 0;
+					chain_length = 1;
+				}
+				break;
 			}
 		}
 	}
 	catch (const std::exception& error)
 	{
-		std::cout << "程序发生严重错误，\n错误信息：" << error.what() << "\n";
-
-
-		std::cout << "\n按任意键继续……";
+		std::cout << "程序发生错误，错误信息：" << error.what() << "\n";
+		std::cout << "\n按任意键重置碳链……";
 		(void)_getch();
-		//std::exit(EXIT_FAILURE);
+
+		for (short x = 0; x < 100; x++)
+		{
+			position[x][0] = x;
+			position[x][1] = 0;
+			position[x][2] = 0;
+			position[x][3] = 0;
+		}
+		position[0][2] = 1;
+
+		pointer[0][0] = 0;
+		pointer[0][1] = 0;
+		chain_length = 1;
+
+		goto main;
+	}
+	catch (...)
+	{
+		std::cout << "程序发生未知错误";
+		std::cout << "\n按任意键退出程序……";
+		(void)_getch();
+		std::exit(EXIT_FAILURE);	
 	}
 }

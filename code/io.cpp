@@ -7,8 +7,8 @@
 void output(short position[100][4], short chain_length)
 {
 	srand(time(0));
-	const char* replace_char[] = {"a", "b", "c", "d", "e", "f"};
-	const char* random_chars[] = {"z", "y", "x", "w", "v", "u", "t", "s", "r", "q", "p", "o", "n", "m", "l", "k", "j", "i", "h", "g"};
+	const char* replace_char[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l"};
+	const char* random_chars[] = {"z", "y", "x", "w", "v", "u", "t", "s", "r", "q", "p", "o", "n", "m"};
 	short random_chars_count = std::size(random_chars);
 	std::string out_string = "=";
 	int checksum = 0;
@@ -34,7 +34,7 @@ void output(short position[100][4], short chain_length)
 			{
 				out_string += std::to_string(position[x][y]);
 			}
-			else if (position[x][y] >= 10 and position[x][y] <= 15)
+			else if (position[x][y] >= 10 and position[x][y] <= 21)
 			{
 				out_string += replace_char[position[x][y] - 10];
 			}
@@ -128,6 +128,7 @@ void input(short position[100][4], short &chain_length)
 			if (read_chain_length < 0 or read_chain_length > 50)
 			{
 				std::cout << "文件值不合法";
+				break;
 			}
 			file_checksum += read_chain_length;
 
@@ -140,11 +141,11 @@ void input(short position[100][4], short &chain_length)
 					{
 						temp_position[x][y] = data_char - '0';
 					}
-					else if (data_char >= 'a' and data_char <= 'f')
+					else if (data_char >= 'a' and data_char <= 'l')
 					{
 						temp_position[x][y] = data_char - 'a' + 10;
 					}
-					else if(data_char >= 'g' and data_char <= 'z')
+					else if(data_char >= 'm' and data_char <= 'z')
 					{
 						temp_position[x][y] = 0;
 					}
@@ -211,6 +212,7 @@ void input(short position[100][4], short &chain_length)
 		if (read_chain_length < 0 or read_chain_length > 50)
 		{
 			std::cout << "输入值不合法";
+			break;
 		}
 		file_checksum += read_chain_length;
 
@@ -223,11 +225,11 @@ void input(short position[100][4], short &chain_length)
 				{
 					temp_position[x][y] = data_char - '0';
 				}
-				else if (data_char >= 'a' and data_char <= 'f')
+				else if (data_char >= 'a' and data_char <= 'l')
 				{
 					temp_position[x][y] = data_char - 'a' + 10;
 				}
-				else if(data_char >= 'g' and data_char <= 'z')
+				else if(data_char >= 'm' and data_char <= 'z')
 				{
 					temp_position[x][y] = 0;
 				}
