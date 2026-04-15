@@ -10,7 +10,7 @@ void check_x(short position[100][4], short &chain_length, short pointer[1][2])
 		{
 			for (short i = chain_length * 2 - 4; i >= 0; i -= 2)
 			{
-				if (position[i][1] - 5 < chain_length - (i / 2 + 1) and position[i][3] - 5 < chain_length - (i / 2 + 1))
+				if ((position[i][1] > 14 or position[i][1] - 5 < chain_length - (i / 2 + 1)) and (position[i][3] > 14 or position[i][3] - 5 < chain_length - (i / 2 + 1)))
 				{
 					//可以缩短碳链
 				}
@@ -36,7 +36,7 @@ void check_x(short position[100][4], short &chain_length, short pointer[1][2])
 		}
 		else
 		{
-			std::cout << "无法缩短碳链，从取代基计算的链长不可长于主链长2\n";
+			std::cout << "无法缩短碳链，要缩短的碳上带有取代基\n";
 			notice();
 		}
 	}

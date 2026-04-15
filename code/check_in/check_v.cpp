@@ -15,12 +15,44 @@ void check_v(short position[100][4], short& chain_length, short pointer[1][2])
 			}
 			else
 			{
-				position[pointer[0][0]][2] = 3;
+				if (position[pointer[0][0] - 1][1] == 15 or position[pointer[0][0] - 1][3] == 15 or position[pointer[0][0] + 1][1] == 15 or position[pointer[0][0] +1][3] == 15)
+				{
+					std::cout << "双键任意侧的碳原子上不能有羟基\n";
+					notice();
+				}
+				else
+				{
+					if (position[pointer[0][0] - 1][1] == 16 or position[pointer[0][0] - 1][3] == 16 or position[pointer[0][0] + 1][1] == 16 or position[pointer[0][0] + 1][3] == 16)
+					{
+						std::cout << "双键任意侧的碳原子上不能有氨基\n";
+						notice();
+					}
+					else
+					{
+						position[pointer[0][0]][2] = 3;
+					}
+				}
 			}
 		}
 		else if (pointer[0][0] == 1 and position[3][2] == 0)
 		{
-			position[1][2] = 3;
+			if (position[0][1] == 15 or position[0][3] == 15 or position[2][1] == 15 or position[2][3] == 15)
+			{
+				std::cout << "双键任意侧的碳原子上不能有羟基\n";
+				notice();
+			}
+			else
+			{
+				if (position[0][1] == 16 or position[0][3] == 16 or position[2][1] == 16 or position[2][3] == 16)
+				{
+					std::cout << "双键任意侧的碳原子上不能有氨基\n";
+					notice();
+				}
+				else
+				{
+					position[1][2] = 3;
+				}
+			}
 		}
 		else if (pointer[0][0] == 1 and position[3][2] == 2)
 		{
@@ -31,7 +63,23 @@ void check_v(short position[100][4], short& chain_length, short pointer[1][2])
 			}
 			else
 			{
-				position[1][2] = 3;
+				if (position[0][1] == 15 or position[0][3] == 15 or position[2][1] == 15 or position[2][3] == 15)
+				{
+					std::cout << "双键任意侧的碳原子上不能有羟基\n";
+					notice();
+				}
+				else
+				{
+					if (position[0][1] == 16 or position[0][3] == 16 or position[2][1] == 16 or position[2][3] == 16)
+					{
+						std::cout << "双键任意侧的碳原子上不能有氨基\n";
+						notice();
+					}
+					else
+					{
+						position[1][2] = 3;
+					}
+				}
 			}
 		}
 		else if (pointer[0][0] == chain_length * 2 - 3 and position[chain_length * 2 - 5][2] == 2)
@@ -43,7 +91,23 @@ void check_v(short position[100][4], short& chain_length, short pointer[1][2])
 			}
 			else
 			{
-				position[chain_length * 2 - 3][2] = 3;
+				if (position[pointer[0][0] - 1][1] == 15 or position[pointer[0][0] - 1][3] == 15 or position[pointer[0][0] + 1][1] == 15 or position[pointer[0][0] + 1][3] == 15)
+				{
+					std::cout << "双键任意侧的碳原子上不能有羟基\n";
+					notice();
+				}
+				else
+				{
+					if (position[pointer[0][0] - 1][1] == 16 or position[pointer[0][0] - 1][3] == 16 or position[pointer[0][0] + 1][1] == 16 or position[pointer[0][0] + 1][3] == 16)
+					{
+						std::cout << "双键任意侧的碳原子上不能有氨基\n";
+						notice();
+					}
+					else
+					{
+						position[chain_length * 2 - 3][2] = 3;
+					}
+				}
 			}
 		}
 		else
