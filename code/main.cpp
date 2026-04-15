@@ -22,6 +22,12 @@ int main()
 			render(position, chain_length, pointer);
 
 			short key = _getch();
+			if (key == 0xE0 || key == 0x00)
+			{
+				(void)_getch();
+				continue;
+			}
+
 			switch (key)
 			{
 			case 27:
@@ -131,7 +137,33 @@ int main()
 			case '7':
 			case '8':
 			case '9':
-				check_num(position, chain_length, pointer, key);
+				check_alkyl(position, chain_length, pointer, key);
+				break;
+
+			case 't':
+			case 'T':
+				check_t(position, chain_length, pointer);
+				break;
+
+			case 'y':
+			case 'Y':
+				check_y(position, chain_length, pointer);
+				break;
+
+			case 'f':
+			case 'F':
+			case 'g':
+			case 'G':
+			case 'h':
+			case 'H':
+			case 'j':
+			case 'J':
+				check_halogen(position, chain_length, pointer, key);
+				break;
+
+			case'k':
+			case'K':
+				check_k(position, chain_length, pointer);
 				break;
 
 			case'i':
@@ -147,7 +179,8 @@ int main()
 			case 'r':
 			case 'R':
 				std::cout << "\n确定要重置吗？\n按Y键确认，按其他键取消\n";
-				if (_getch() == 'y' or 'Y')
+				key = _getch();
+				if (key == 'y' or key == 'Y')
 				{
 					for (short x = 0; x < 100; x++)
 					{
@@ -171,20 +204,6 @@ int main()
 		std::cout << "程序发生错误，错误信息：" << error.what() << "\n";
 		std::cout << "\n按任意键重置碳链……";
 		(void)_getch();
-
-		for (short x = 0; x < 100; x++)
-		{
-			position[x][0] = x;
-			position[x][1] = 0;
-			position[x][2] = 0;
-			position[x][3] = 0;
-		}
-		position[0][2] = 1;
-
-		pointer[0][0] = 0;
-		pointer[0][1] = 0;
-		chain_length = 1;
-
 		goto main;
 	}
 	catch (...)

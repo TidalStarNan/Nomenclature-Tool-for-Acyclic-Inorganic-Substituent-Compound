@@ -48,7 +48,7 @@ void output(short position[100][4], short chain_length)
 	out_string += std::to_string((checksum + 8) % 100);
 	out_string += "=";
 
-	std::cout << "\n选择导出方式：\n1. 文本文件（输出至本程序同目录下input.txt）\n2. 控制台\n\n";
+	std::cout << "\n选择导出方式：\n1. 文本文件（输出至本程序同目录下的output.txt）\n2. 控制台\n\n";
 	short out_choice = _getch();
 	switch (out_choice)
 	{
@@ -64,7 +64,7 @@ void output(short position[100][4], short chain_length)
 			DWORD length = GetFullPathNameA("output.txt", MAX_PATH, fullpath, nullptr);
 			if (length == 0)
 			{
-				std::cout << "无法获取文件位置，可能已经保存了。来自Windows的错误代码: " << GetLastError();
+				std::cout << "无法获取文件保存位置，可能已经保存了。来自Windows的错误代码: " << GetLastError();
 			}
 			else
 			{
@@ -104,7 +104,7 @@ void input(short position[100][4], short &chain_length)
 	std::string in_char;
 	short in_char_index = 3;
 
-	std::cout << "\n选择导入方式：\n1. 文本文件（在本程序同目录下放置一个input.txt文件并写入）\n2. 控制台\n\n";
+	std::cout << "\n选择导入方式：\n1. 文本文件（读取本程序同目录下的input.txt）\n2. 控制台\n\n";
 	short in_choice = _getch();
 
 	switch (in_choice)
@@ -202,7 +202,7 @@ void input(short position[100][4], short &chain_length)
 		start_char = in_char.at(0);
 		if (start_char != '=')
 		{
-			std::cout << "输入格式不合法，缺少起止标志";
+			std::cout << "\n输入格式不合法，缺少起止标志";
 			break;
 		}
 
@@ -211,7 +211,7 @@ void input(short position[100][4], short &chain_length)
 		read_chain_length = (length_chars_tens - '0') * 10 + (length_chars_ones - '0');
 		if (read_chain_length < 0 or read_chain_length > 50)
 		{
-			std::cout << "输入值不合法";
+			std::cout << "\n输入值不合法";
 			break;
 		}
 		file_checksum += read_chain_length;
@@ -235,7 +235,7 @@ void input(short position[100][4], short &chain_length)
 				}
 				else
 				{
-					std::cout << "输入值不合法";
+					std::cout << "\n输入值不合法";
 					break;
 				}
 				in_char_index++;
@@ -251,14 +251,14 @@ void input(short position[100][4], short &chain_length)
 		read_checksum = (read_checksum_tens - '0') * 10 + (read_checksum_ones - '0');
 		if (read_checksum != (file_checksum + 8) % 100)
 		{
-			std::cout << "校验和错误，输入可能已损坏或被篡改";
+			std::cout << "\n校验和错误，输入可能已损坏或被篡改";
 			break;
 		}
 
 		end_char = in_char.at(in_char_index);
 		if (end_char != '=')
 		{
-			std::cout << "输入格式不合法，缺少起止标志";
+			std::cout << "\n输入格式不合法，缺少起止标志";
 			break;
 		}
 
@@ -274,6 +274,6 @@ void input(short position[100][4], short &chain_length)
 		break;
 	}
 
-	std::cout << "\n按任意键继续……";
+	std::cout << "\n\n按任意键继续……";
 	(void)_getch();
 }
